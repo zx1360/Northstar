@@ -1,4 +1,4 @@
-import 'package:pilgrim/server/handler/backup_bandler.dart';
+import 'package:northstar/_server/handler/backup_bandler.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 Router createBackupRouter(){

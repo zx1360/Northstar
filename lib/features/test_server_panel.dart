@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pilgrim/server/myserver.dart';
+import 'package:northstar/_server/myserver.dart';
 
 // 服务器控制页面 - 应用的主界面
 class ServerControlPage extends StatefulWidget {

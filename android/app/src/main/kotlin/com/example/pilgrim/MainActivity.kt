@@ -1,4 +1,4 @@
-package com.example.pilgrim
+package com.example.northstar
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -593,7 +593,7 @@ packages:
     source: hosted
     version: "2.6.1"
   riverpod_analyzer_utils:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: riverpod_analyzer_utils
       sha256: "8b71f03fc47ae27d13769496a1746332df4cec43918aeba9aff1e232783a780f"

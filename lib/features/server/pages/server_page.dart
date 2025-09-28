@@ -2,57 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:northstar/_server/myserver.dart';
 
-// 服务器控制页面 - 应用的主界面
-class ServerControlPage extends StatefulWidget {
-  const ServerControlPage({super.key});
+class ServerPage extends StatefulWidget {
+  const ServerPage({super.key});
 
   @override
-  State<ServerControlPage> createState() => _ServerControlPageState();
+  State<ServerPage> createState() => _ServerPageState();
 }
 
-class _ServerControlPageState extends State<ServerControlPage> {
-  // 服务器实例
+class _ServerPageState extends State<ServerPage> {
+  // Web服务实例
   final Myserver _server = Myserver();
-  
+
   // 状态变量
   bool _isServerRunning = false;
-  String _statusMessage = "服务器未启动";
-  final TextEditingController _portController = TextEditingController(text: "9527");
+  String _statusMessage = "Web服务尚未启动...";
+  final _portController = TextEditingController(text: "9527");
   final List<String> _logMessages = [];
 
-  // 启动/停止服务器
+  // 切换服务器运行状态
   Future<void> _toggleServer() async {
     if (_isServerRunning) {
-      // 停止服务器
       await _server.stop();
-      _addLog("服务器已停止");
+      _addLog("Web服务已停止.");
     } else {
-      // 启动服务器
-      final port = int.tryParse(_portController.text) ?? 8080;
+      final port = int.tryParse(_portController.text) ?? 9527;
+      _addLog("服务器启动，端口: $port");
       try {
         await _server.start(port: port);
-        _addLog("服务器启动成功，端口: $port");
-        // 监听服务器事件（假设有相关回调）
-        // _server.onRequestReceived = (String path) {
-        //   _addLog("收到请求: $path");
-        // };
       } catch (e) {
         _addLog("启动失败: ${e.toString()}");
       }
     }
 
-    // 更新状态
+    // 更新ui状态
     setState(() {
       _isServerRunning = _server.isRunning;
-      _statusMessage = _isServerRunning 
-          ? "服务器运行中 (端口: ${_server.port})" 
-          : "服务器未启动";
+      _statusMessage = _isServerRunning
+          ? "服务器运行中(端口: ${_server.port})"
+          : "Web服务尚未启动...";
     });
   }
 
   // 添加日志消息
   void _addLog(String message) {
-    final time = DateTime.now().toString().split(" ")[1];
+    final time = DateTime.now().toString();
     setState(() {
       _logMessages.insert(0, "[$time] $message");
       // 限制日志数量，避免内存占用过大
@@ -75,22 +68,10 @@ class _ServerControlPageState extends State<ServerControlPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("漫画备份中心"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info),
-            onPressed: () => showAboutDialog(
-              context: context,
-              applicationName: "漫画备份中心",
-              applicationVersion: "1.0.0",
-              children: [const Text("用于管理漫画数据备份的桌面工具")],
-            ),
-          )
-        ],
-      ),
-      body: Padding(
+    final colorTheme = Theme.of(context).colorScheme;
+    return Container(
+      color: colorTheme.surface,
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +91,7 @@ class _ServerControlPageState extends State<ServerControlPage> {
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               labelText: "服务器端口",
-                              hintText: "输入端口号（1-65535）",
+                              hintText: "输入端口号(1-65535)",
                               border: OutlineInputBorder(),
                             ),
                             enabled: !_isServerRunning, // 服务器运行时不可编辑
@@ -121,14 +102,19 @@ class _ServerControlPageState extends State<ServerControlPage> {
                           onPressed: _toggleServer,
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 16),
-                            backgroundColor: _isServerRunning 
-                                ? Colors.red 
+                              horizontal: 24,
+                              vertical: 16,
+                            ),
+                            backgroundColor: _isServerRunning
+                                ? colorTheme.onSecondary
                                 : Theme.of(context).primaryColor,
                           ),
                           child: Text(
                             _isServerRunning ? "停止服务器" : "启动服务器",
-                            style: const TextStyle(fontSize: 16, color: Colors.amber),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.amber,
+                            ),
                           ),
                         ),
                       ],
@@ -141,7 +127,9 @@ class _ServerControlPageState extends State<ServerControlPage> {
                           _statusMessage,
                           style: TextStyle(
                             fontSize: 16,
-                            color: _isServerRunning ? Colors.green : Colors.grey,
+                            color: _isServerRunning
+                                ? Colors.green
+                                : Colors.grey,
                           ),
                         ),
                         if (_isServerRunning)
@@ -187,15 +175,4 @@ class _ServerControlPageState extends State<ServerControlPage> {
       ),
     );
   }
-
-  // 页面销毁时停止服务器
-  @override
-  void dispose() {
-    if (_isServerRunning) {
-      _server.stop();
-    }
-    _portController.dispose();
-    super.dispose();
-  }
 }
-    

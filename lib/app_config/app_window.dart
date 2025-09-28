@@ -12,7 +12,6 @@ Future<void> initWindow()async{
       title: "northstar 北极星",
       size: const Size(916, 616),
       backgroundColor: Colors.transparent,  //MaterialApp后面的背景颜色设为透明.
-      // TODO: 自定义stl类实现拖拽, 最小化/关闭逻辑.
       titleBarStyle: TitleBarStyle.hidden 
     );
     if (Platform.isWindows) {

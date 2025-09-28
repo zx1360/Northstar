@@ -1,0 +1,97 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:northstar/shared/widgets/shell/side_navbar.dart';
+import 'package:northstar/shared/widgets/shell/title_bar.dart';
+import 'package:system_tray/system_tray.dart';
+import 'package:window_manager/window_manager.dart';
+
+class ShellPage extends StatefulWidget {
+  final String currentLocation;
+  final Widget child;
+  const ShellPage({
+    super.key,
+    required this.currentLocation,
+    required this.child,
+  });
+
+  @override
+  State<ShellPage> createState() => _ShellPageState();
+}
+
+class _ShellPageState extends State<ShellPage> {
+  final _systemTray = SystemTray();
+  final _menu = Menu();
+  bool _isTrayInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initSystemTray();
+  }
+
+  @override
+  void dispose() {
+    if (_isTrayInitialized) {
+      _systemTray.destroy();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          SideNavbar(currentLocation: widget.currentLocation),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const TitleBar(),
+                Expanded(child: widget.child),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+  // 系统托盘初始化
+  Future<void> _initSystemTray() async {
+    try {
+      await _systemTray.initSystemTray(
+        iconPath: "assets/icons/48.ico",
+        toolTip: "northstar北极星",
+      );
+      await _menu.buildFrom([
+        MenuItemLabel(
+          label: "退出",
+          onClicked: (item) async {
+            await _systemTray.destroy();
+            await windowManager.close();
+          },
+        ),
+      ]);
+      _systemTray.setContextMenu(_menu);
+
+      // 注册事件
+      _systemTray.registerSystemTrayEventHandler((eventName) async {
+        switch(eventName){
+          case kSystemTrayEventClick:
+            await windowManager.show();
+            case kSystemTrayEventRightClick:
+            await _systemTray.popUpContextMenu();
+        }
+      });
+
+      // 标记初始化成功
+      _isTrayInitialized = true;
+    } catch (error) {
+      throw Exception("托盘初始化失败: $error");
+    }
+  }
+}

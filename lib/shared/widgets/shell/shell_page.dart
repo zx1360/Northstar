@@ -1,18 +1,17 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:northstar/shared/widgets/shell/side_navbar.dart';
-import 'package:northstar/shared/widgets/shell/title_bar.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:system_tray/system_tray.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'package:northstar/shared/widgets/shell/side_navbar/side_navbar.dart';
+import 'package:northstar/shared/widgets/shell/titlebar/titlebar.dart';
+
 class ShellPage extends StatefulWidget {
-  final String currentLocation;
-  final Widget child;
+  final StatefulNavigationShell navigationShell;
   const ShellPage({
     super.key,
-    required this.currentLocation,
-    required this.child,
+    required this.navigationShell,
   });
 
   @override
@@ -43,13 +42,13 @@ class _ShellPageState extends State<ShellPage> {
     return Scaffold(
       body: Row(
         children: [
-          SideNavbar(currentLocation: widget.currentLocation),
+          SideNavbar(navigationShell: widget.navigationShell),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const TitleBar(),
-                Expanded(child: widget.child),
+                Expanded(child: widget.navigationShell),
               ],
             ),
           ),

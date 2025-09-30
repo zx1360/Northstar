@@ -37,15 +37,13 @@ class AppTheme {
     secondaryContainer: AppColors.secondaryContainer,
     tertiary: AppColors.tertiary,
     tertiaryContainer: AppColors.tertiaryContainer,
-    background: AppColors.background,
     surface: AppColors.surface,
-    surfaceVariant: AppColors.surfaceVariant,
+    surfaceContainerHighest: AppColors.surfaceVariant,
     surfaceTint: Colors.transparent,
     error: AppColors.error,
     onPrimary: AppColors.onPrimary,
     onSecondary: AppColors.onSecondary,
     onTertiary: AppColors.onTertiary,
-    onBackground: AppColors.onBackground,
     onSurface: AppColors.onSurface,
     onSurfaceVariant: AppColors.onSurfaceVariant,
     onError: AppColors.onError,
@@ -174,11 +172,11 @@ class AppTheme {
   );
 
   static final CheckboxThemeData _checkboxTheme = CheckboxThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
+    fillColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
         return AppColors.primary;
       }
-      if (states.contains(MaterialState.disabled)) {
+      if (states.contains(WidgetState.disabled)) {
         return AppColors.onSurface.withOpacity(0.38);
       }
       return null;
@@ -189,20 +187,20 @@ class AppTheme {
   );
 
   static final SwitchThemeData _switchTheme = SwitchThemeData(
-    thumbColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
+    thumbColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
         return AppColors.onPrimary;
       }
-      if (states.contains(MaterialState.disabled)) {
+      if (states.contains(WidgetState.disabled)) {
         return AppColors.onSurface.withOpacity(0.38);
       }
       return AppColors.onSurface;
     }),
-    trackColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
+    trackColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
         return AppColors.primary;
       }
-      if (states.contains(MaterialState.disabled)) {
+      if (states.contains(WidgetState.disabled)) {
         return AppColors.onSurface.withOpacity(0.12);
       }
       return AppColors.onSurface.withOpacity(0.38);
@@ -210,11 +208,11 @@ class AppTheme {
   );
 
   static final RadioThemeData _radioTheme = RadioThemeData(
-    fillColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
+    fillColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
         return AppColors.primary;
       }
-      if (states.contains(MaterialState.disabled)) {
+      if (states.contains(WidgetState.disabled)) {
         return AppColors.onSurface.withOpacity(0.38);
       }
       return null;
@@ -285,14 +283,14 @@ class AppTheme {
   static final NavigationBarThemeData _navigationBarTheme = NavigationBarThemeData(
     backgroundColor: AppColors.surface,
     indicatorColor: AppColors.primary.withOpacity(0.2),
-    labelTextStyle: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
+    labelTextStyle: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
         return _labelSmall.copyWith(color: AppColors.primary);
       }
       return _labelSmall.copyWith(color: AppColors.onSurfaceVariant);
     }),
-    iconTheme: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.selected)) {
+    iconTheme: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
         return IconThemeData(color: AppColors.primary);
       }
       return IconThemeData(color: AppColors.onSurfaceVariant);

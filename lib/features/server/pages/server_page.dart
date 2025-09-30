@@ -26,9 +26,9 @@ class _ServerPageState extends State<ServerPage> {
       _addLog("Web服务已停止.");
     } else {
       final port = int.tryParse(_portController.text) ?? 9527;
-      _addLog("服务器启动，端口: $port");
       try {
         await _server.start(port: port);
+        _addLog("服务器启动: ${_server.ip}:$port");
       } catch (e) {
         _addLog("启动失败: ${e.toString()}");
       }
@@ -58,7 +58,7 @@ class _ServerPageState extends State<ServerPage> {
   // 复制服务器地址到剪贴板
   void _copyServerAddress() {
     if (_isServerRunning) {
-      final address = "http://localhost:${_server.port}";
+      final address = "http://${_server.ip}:${_server.port}";
       Clipboard.setData(ClipboardData(text: address));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("已复制地址: $address")),

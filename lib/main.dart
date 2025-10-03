@@ -1,5 +1,5 @@
-import 'dart:io';
 // web服务器.
+import 'package:northstar/_server/core/services/io/io_service.dart';
 import 'package:northstar/_server/myserver.dart';
 // 应用配置 (窗口, 托盘等)
 // ui相关.
@@ -8,14 +8,14 @@ import 'package:northstar/app/app.dart';
 import 'package:northstar/app_config/app_window.dart';
 
 
-void main() async {
-  // 系统环境变量含有"NAS_MODE"或运行环境参数有"nas的值."
-  // flutter run -d windows --dart-define=nas=true
-  final isNasMode =
-      const String.fromEnvironment("nas").isNotEmpty ||
-      Platform.environment.containsKey("NAS_MODE");
+void main(List<String> args) async {
+  // 初始化目录, 创建需要的目录结构.
+  IoService.initDirectories();
+  // 根据参数选择启动模式.
+  // 开发时: flutter run -d windows --dart-define=nas=true
+  // exe: northstar.exe --nas=true
   // 如果是nas环境, 只启动服务而无ui.
-  if (isNasMode) {
+  if (const String.fromEnvironment("nas").isNotEmpty) {
     final server = Myserver();
     await server.start(port: 9527);
     await Future.wait([]);

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:northstar/app/routes.dart';
+import 'package:window_manager/window_manager.dart';
 
 // TODO: 考虑考虑stateless/stateful 组件及复用及背后机制.
 class SideNavbar extends StatelessWidget {
@@ -20,11 +21,13 @@ class SideNavbar extends StatelessWidget {
       child: Column(
         children: [
           // 顶部图片
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset("assets/icons/48.ico", width: 48, height: 48),
+          DragToMoveArea(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset("assets/icons/48.ico", width: 48, height: 48),
+              ),
             ),
           ),
           // 留出空格

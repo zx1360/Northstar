@@ -16,7 +16,7 @@ class _ServerPageState extends State<ServerPage> {
   // 状态变量
   bool _isServerRunning = false;
   String _statusMessage = "Web服务尚未启动...";
-  final _portController = TextEditingController(text: "9527");
+  final _portController = TextEditingController(text: "4215");
   final List<String> _logMessages = [];
 
   // 切换服务器运行状态
@@ -25,7 +25,7 @@ class _ServerPageState extends State<ServerPage> {
       await _server.stop();
       _addLog("Web服务已停止.");
     } else {
-      final port = int.tryParse(_portController.text) ?? 9527;
+      final port = int.tryParse(_portController.text) ?? 4215;
       try {
         await _server.start(port: port);
         _addLog("服务器启动: ${_server.ip}:$port");

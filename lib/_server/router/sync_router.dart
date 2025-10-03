@@ -1,4 +1,4 @@
-import 'package:northstar/_server/controller/sync_handler.dart';
+import 'package:northstar/_server/handler/sync_handler.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 Router createSyncRouter(){

@@ -38,7 +38,7 @@ class _ServerPageState extends State<ServerPage> {
     setState(() {
       _isServerRunning = _server.isRunning;
       _statusMessage = _isServerRunning
-          ? "服务器运行中(端口: ${_server.port})"
+          ? "服务器运行中 (IP: ${_server.ip}, 端口: ${_server.port})"
           : "Web服务尚未启动...";
     });
   }

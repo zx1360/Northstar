@@ -13,7 +13,6 @@ class SyncHandler {
     final Map<String, dynamic> data = {};
     final styleFile = File(path.join(targetDir, "styles.json"));
     final recordFile = File(path.join(targetDir, "records.json"));
-    print((await styleFile.readAsString()).toString());
     data['styles'] = jsonDecode(await styleFile.readAsString());
     data['records'] = jsonDecode(await recordFile.readAsString());
     
@@ -31,9 +30,9 @@ class SyncHandler {
     final summaryFile = File(path.join(targetDir, "year_summaries.json"));
     final labelFile = File(path.join(targetDir, "labels.json"));
     final essayFile = File(path.join(targetDir, "essays.json"));
-    data['year_summaries'] = await summaryFile.readAsString();
-    data['labels'] = await labelFile.readAsString();
-    data['essays'] = await essayFile.readAsString();
+    data['year_summaries'] = jsonDecode(await summaryFile.readAsString());
+    data['labels'] = jsonDecode(await labelFile.readAsString());
+    data['essays'] = jsonDecode(await essayFile.readAsString());
     
     return Response.ok(
       jsonEncode(data),

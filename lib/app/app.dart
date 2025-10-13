@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:northstar/app/theme.dart';
-import 'package:northstar/shared/router/router.dart';
+import 'package:northstar/app/router.dart';
 
 // PC启动时的ui应用
 class MyApp extends StatelessWidget {

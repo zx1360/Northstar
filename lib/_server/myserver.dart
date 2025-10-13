@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:northstar/_server/core/services/network/network_service.dart';
+import 'package:northstar/_server/services/debug/logging_service.dart';
+import 'package:northstar/_server/services/network/network_service.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:northstar/_server/router/_root_router.dart';
@@ -43,6 +44,6 @@ class Myserver {
 
     await _server.close();
     _isRunning = false;
-    print("server: 已停止");
+    AppLogger().info("server: 已停止");
   }
 }

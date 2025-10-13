@@ -6,15 +6,15 @@ class IoService {
   static String get appDir => path.dirname(Platform.resolvedExecutable);
   
   // 初始化目录. 创建所有需要的目录结构.
-  static void initDirectories(){
+  static Future<void> initDirectories()async{
     List<String> dirs = [
       "static/img_storage",
       "static/booklet",
       "static/essay",
     ];
-    dirs.forEach((dir)async{
+    for(final dir in dirs){
       await getSaveDir(dir);
-    });
+    }
   }
   
   // 根据相对路径创建一个目录.

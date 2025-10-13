@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:northstar/_server/core/services/debug/logging_service.dart';
+import 'package:northstar/_server/services/debug/logging_service.dart';
 
 Future<String> getLocalIps() async {
   List<String> ips = [];
@@ -8,12 +8,12 @@ Future<String> getLocalIps() async {
     for (var addr in interface.addresses) {
       if (addr.type == InternetAddressType.IPv4 && !addr.isLoopback) {
         // TODO: 临时写法, 识别出校园网内的局域网ip.
-        // if(addr.address.startsWith("10.61")) {
-        //   ips.add(addr.address);
-        // }
-        if(addr.address.startsWith("192.168")) {
+        if(addr.address.startsWith("10.61")) {
           ips.add(addr.address);
         }
+        // if(addr.address.startsWith("192.168")) {
+        //   ips.add(addr.address);
+        // }
       }
     }
   }

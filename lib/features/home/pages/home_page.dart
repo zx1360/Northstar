@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+// TODO:  展示主要信息, server是否启动, static目录的打开按钮等.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 

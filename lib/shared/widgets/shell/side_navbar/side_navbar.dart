@@ -66,7 +66,6 @@ class SideNavbar extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: IconButton(
                   onPressed: () async {
-                    print("我去! 点了一下底部按钮!");
                     navigationShell.goBranch(4);
                   },
                   icon: Icon(IconData(0xe60a, fontFamily: "iconfont")),

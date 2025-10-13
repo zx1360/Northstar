@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 class AppTheme {
+  /// 深色主题配置
   static ThemeData dark() {
     return ThemeData(
       useMaterial3: true,
@@ -9,7 +9,6 @@ class AppTheme {
       colorScheme: _darkColorScheme,
       textTheme: _textTheme,
       appBarTheme: _appBarTheme,
-      buttonTheme: _buttonTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
       textButtonTheme: _textButtonTheme,
@@ -17,19 +16,14 @@ class AppTheme {
       inputDecorationTheme: _inputDecorationTheme,
       checkboxTheme: _checkboxTheme,
       switchTheme: _switchTheme,
-      radioTheme: _radioTheme,
-      sliderTheme: _sliderTheme,
-      progressIndicatorTheme: _progressIndicatorTheme,
-      tabBarTheme: _tabBarTheme,
       dialogTheme: _dialogTheme,
       bottomSheetTheme: _bottomSheetTheme,
       snackBarTheme: _snackBarTheme,
-      tooltipTheme: _tooltipTheme,
       navigationBarTheme: _navigationBarTheme,
-      navigationRailTheme: _navigationRailTheme,
     );
   }
 
+  /// 深色模式配色方案
   static const ColorScheme _darkColorScheme = ColorScheme.dark(
     primary: AppColors.primary,
     primaryContainer: AppColors.primaryContainer,
@@ -55,6 +49,7 @@ class AppTheme {
     scrim: AppColors.scrim,
   );
 
+  /// 全局文本样式
   static final TextTheme _textTheme = TextTheme(
     displayLarge: _displayLarge,
     displayMedium: _displayMedium,
@@ -73,6 +68,7 @@ class AppTheme {
     labelSmall: _labelSmall,
   );
 
+  /// AppBar 主题
   static final AppBarTheme _appBarTheme = AppBarTheme(
     backgroundColor: AppColors.surface,
     titleTextStyle: _titleLarge.copyWith(color: AppColors.onSurface),
@@ -81,16 +77,7 @@ class AppTheme {
     shadowColor: AppColors.shadow,
   );
 
-  static final ButtonThemeData _buttonTheme = ButtonThemeData(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppDimens.borderRadius),
-    ),
-    buttonColor: AppColors.primary,
-    textTheme: ButtonTextTheme.primary,
-    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    height: 44,
-  );
-
+  /// 高强调按钮主题
   static final ElevatedButtonThemeData _elevatedButtonTheme =
       ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -107,6 +94,7 @@ class AppTheme {
     ),
   );
 
+  /// 描边按钮主题
   static final OutlinedButtonThemeData _outlinedButtonTheme =
       OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
@@ -120,6 +108,7 @@ class AppTheme {
     ),
   );
 
+  /// 文本按钮主题
   static final TextButtonThemeData _textButtonTheme = TextButtonThemeData(
     style: TextButton.styleFrom(
       foregroundColor: AppColors.onSurface,
@@ -131,6 +120,7 @@ class AppTheme {
     ),
   );
 
+  /// 卡片主题
   static final CardThemeData _cardTheme = CardThemeData(
     color: AppColors.surface,
     elevation: 2,
@@ -142,6 +132,7 @@ class AppTheme {
     margin: EdgeInsets.zero,
   );
 
+  /// 输入框主题
   static final InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
     filled: true,
     fillColor: AppColors.surfaceVariant,
@@ -171,77 +162,31 @@ class AppTheme {
     contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
   );
 
+  /// 复选框主题
   static final CheckboxThemeData _checkboxTheme = CheckboxThemeData(
     fillColor: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected)) {
-        return AppColors.primary;
-      }
-      if (states.contains(WidgetState.disabled)) {
-        return AppColors.onSurface.withOpacity(0.38);
-      }
+      if (states.contains(WidgetState.selected)) return AppColors.primary;
+      if (states.contains(WidgetState.disabled)) return AppColors.onSurface.withOpacity(0.38);
       return null;
     }),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(4),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
   );
 
+  /// 开关主题
   static final SwitchThemeData _switchTheme = SwitchThemeData(
     thumbColor: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected)) {
-        return AppColors.onPrimary;
-      }
-      if (states.contains(WidgetState.disabled)) {
-        return AppColors.onSurface.withOpacity(0.38);
-      }
+      if (states.contains(WidgetState.selected)) return AppColors.onPrimary;
+      if (states.contains(WidgetState.disabled)) return AppColors.onSurface.withOpacity(0.38);
       return AppColors.onSurface;
     }),
     trackColor: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected)) {
-        return AppColors.primary;
-      }
-      if (states.contains(WidgetState.disabled)) {
-        return AppColors.onSurface.withOpacity(0.12);
-      }
+      if (states.contains(WidgetState.selected)) return AppColors.primary;
+      if (states.contains(WidgetState.disabled)) return AppColors.onSurface.withOpacity(0.12);
       return AppColors.onSurface.withOpacity(0.38);
     }),
   );
 
-  static final RadioThemeData _radioTheme = RadioThemeData(
-    fillColor: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected)) {
-        return AppColors.primary;
-      }
-      if (states.contains(WidgetState.disabled)) {
-        return AppColors.onSurface.withOpacity(0.38);
-      }
-      return null;
-    }),
-  );
-
-  static final SliderThemeData _sliderTheme = SliderThemeData(
-    activeTrackColor: AppColors.primary,
-    inactiveTrackColor: AppColors.onSurface.withOpacity(0.24),
-    thumbColor: AppColors.primary,
-    overlayColor: AppColors.primary.withOpacity(0.24),
-    valueIndicatorColor: AppColors.primary,
-    valueIndicatorTextStyle: _bodyMedium.copyWith(color: AppColors.onPrimary),
-  );
-
-  static final ProgressIndicatorThemeData _progressIndicatorTheme =
-      ProgressIndicatorThemeData(
-    color: AppColors.primary,
-    circularTrackColor: AppColors.onSurface.withOpacity(0.24),
-  );
-
-  static final TabBarThemeData _tabBarTheme = TabBarThemeData(
-    labelColor: AppColors.primary,
-    unselectedLabelColor: AppColors.onSurfaceVariant,
-    indicatorColor: AppColors.primary,
-    indicatorSize: TabBarIndicatorSize.tab,
-    // indicatorWeight: 2,
-  );
-
+  /// 对话框主题
   static final DialogThemeData _dialogTheme = DialogThemeData(
     backgroundColor: AppColors.surface,
     elevation: 4,
@@ -253,6 +198,7 @@ class AppTheme {
     contentTextStyle: _bodyMedium,
   );
 
+  /// 底部弹窗主题
   static final BottomSheetThemeData _bottomSheetTheme = BottomSheetThemeData(
     backgroundColor: AppColors.surface,
     elevation: 4,
@@ -262,6 +208,7 @@ class AppTheme {
     ),
   );
 
+  /// 提示条主题
   static final SnackBarThemeData _snackBarTheme = SnackBarThemeData(
     backgroundColor: AppColors.surfaceVariant,
     contentTextStyle: _bodyMedium.copyWith(color: AppColors.onSurfaceVariant),
@@ -272,152 +219,49 @@ class AppTheme {
     ),
   );
 
-  static final TooltipThemeData _tooltipTheme = TooltipThemeData(
-    // backgroundColor: AppColors.surfaceVariant,
-    textStyle: _bodySmall.copyWith(color: AppColors.onSurfaceVariant),
-    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-    // borderRadius: BorderRadius.circular(4),
-    // elevation: 2,
-  );
-
+  /// 底部导航栏主题
   static final NavigationBarThemeData _navigationBarTheme = NavigationBarThemeData(
     backgroundColor: AppColors.surface,
     indicatorColor: AppColors.primary.withOpacity(0.2),
     labelTextStyle: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected)) {
-        return _labelSmall.copyWith(color: AppColors.primary);
-      }
+      if (states.contains(WidgetState.selected)) return _labelSmall.copyWith(color: AppColors.primary);
       return _labelSmall.copyWith(color: AppColors.onSurfaceVariant);
     }),
     iconTheme: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(WidgetState.selected)) {
-        return IconThemeData(color: AppColors.primary);
-      }
+      if (states.contains(WidgetState.selected)) return IconThemeData(color: AppColors.primary);
       return IconThemeData(color: AppColors.onSurfaceVariant);
     }),
   );
 
-  static final NavigationRailThemeData _navigationRailTheme = NavigationRailThemeData(
-    backgroundColor: AppColors.surface,
-    selectedIconTheme: IconThemeData(color: AppColors.primary),
-    unselectedIconTheme: IconThemeData(color: AppColors.onSurfaceVariant),
-    selectedLabelTextStyle: _labelMedium.copyWith(color: AppColors.primary),
-    unselectedLabelTextStyle: _labelMedium.copyWith(color: AppColors.onSurfaceVariant),
-    indicatorColor: AppColors.primary.withOpacity(0.2),
-    elevation: 2,
-  );
-
-  // Text styles
-  static final TextStyle _displayLarge = TextStyle(
-    fontSize: 57,
-    fontWeight: FontWeight.w400,
-    letterSpacing: -0.25,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _displayMedium = TextStyle(
-    fontSize: 45,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _displaySmall = TextStyle(
-    fontSize: 36,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _headlineLarge = TextStyle(
-    fontSize: 32,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _headlineMedium = TextStyle(
-    fontSize: 28,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _headlineSmall = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _titleLarge = TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _titleMedium = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.15,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _titleSmall = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.1,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _bodyLarge = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.5,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _bodyMedium = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.25,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _bodySmall = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    letterSpacing: 0.4,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _labelLarge = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.1,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _labelMedium = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.5,
-    color: AppColors.onBackground,
-  );
-  static final TextStyle _labelSmall = TextStyle(
-    fontSize: 11,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0.5,
-    color: AppColors.onBackground,
-  );
+  // 文本样式定义
+  static final TextStyle _displayLarge = TextStyle(fontSize: 57, fontWeight: FontWeight.w400, letterSpacing: -0.25, color: AppColors.onBackground);
+  static final TextStyle _displayMedium = TextStyle(fontSize: 45, fontWeight: FontWeight.w400, letterSpacing: 0, color: AppColors.onBackground);
+  static final TextStyle _displaySmall = TextStyle(fontSize: 36, fontWeight: FontWeight.w400, letterSpacing: 0, color: AppColors.onBackground);
+  static final TextStyle _headlineLarge = TextStyle(fontSize: 32, fontWeight: FontWeight.w400, letterSpacing: 0, color: AppColors.onBackground);
+  static final TextStyle _headlineMedium = TextStyle(fontSize: 28, fontWeight: FontWeight.w400, letterSpacing: 0, color: AppColors.onBackground);
+  static final TextStyle _headlineSmall = TextStyle(fontSize: 24, fontWeight: FontWeight.w400, letterSpacing: 0, color: AppColors.onBackground);
+  static final TextStyle _titleLarge = TextStyle(fontSize: 22, fontWeight: FontWeight.w500, letterSpacing: 0, color: AppColors.onBackground);
+  static final TextStyle _titleMedium = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.15, color: AppColors.onBackground);
+  static final TextStyle _titleSmall = TextStyle(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1, color: AppColors.onBackground);
+  static final TextStyle _bodyLarge = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5, color: AppColors.onBackground);
+  static final TextStyle _bodyMedium = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25, color: AppColors.onBackground);
+  static final TextStyle _bodySmall = TextStyle(fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4, color: AppColors.onBackground);
+  static final TextStyle _labelLarge = TextStyle(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1, color: AppColors.onBackground);
+  static final TextStyle _labelMedium = TextStyle(fontSize: 12, fontWeight: FontWeight.w500, letterSpacing: 0.5, color: AppColors.onBackground);
+  static final TextStyle _labelSmall = TextStyle(fontSize: 11, fontWeight: FontWeight.w500, letterSpacing: 0.5, color: AppColors.onBackground);
 }
 
 class AppColors {
-  // Main colors
   static const Color primary = Color(0xFFdd9b49);
   static const Color primaryContainer = Color(0xFF443e34);
   static const Color secondary = Color(0xFFffbf00);
   static const Color secondaryContainer = Color(0xFF443e34);
   static const Color tertiary = Color(0xFF656565);
   static const Color tertiaryContainer = Color(0xFF2b2b2b);
-
-  // Background colors
   static const Color background = Color(0xFF1c1c1c);
   static const Color surface = Color(0xFF242424);
   static const Color surfaceVariant = Color(0xFF2b2b2b);
-
-  // Error colors
   static const Color error = Color(0xFFff4757);
-
-  // Text colors
   static const Color onPrimary = Color(0xFFFFFFFF);
   static const Color onSecondary = Color(0xFF000000);
   static const Color onTertiary = Color(0xFFFFFFFF);
@@ -425,39 +269,28 @@ class AppColors {
   static const Color onSurface = Color(0xFFf5f5f5);
   static const Color onSurfaceVariant = Color(0xFFababab);
   static const Color onError = Color(0xFFFFFFFF);
-
-  // Other colors
   static const Color outline = Color(0xFF656565);
   static const Color outlineVariant = Color(0xFF443e34);
   static const Color inverseSurface = Color(0xFFf5f5f5);
   static const Color inversePrimary = Color(0xFFffd580);
   static const Color shadow = Color(0x40000000);
   static const Color scrim = Color(0x80000000);
-
-  // Additional colors for specific purposes
   static const Color success = Color(0xFF2ecc71);
   static const Color info = Color(0xFF3498db);
   static const Color warning = Color(0xFFf39c12);
 }
 
 class AppDimens {
-  // Border radius
   static const double borderRadius = 8.0;
   static const double buttonBorderRadius = 6.0;
   static const double smallBorderRadius = 4.0;
-
-  // Elevation
   static const double elevation = 2.0;
   static const double cardElevation = 2.0;
-
-  // Padding
   static const double paddingXS = 4.0;
   static const double paddingS = 8.0;
   static const double paddingM = 12.0;
   static const double paddingL = 16.0;
   static const double paddingXL = 24.0;
-
-  // Spacing
   static const double spacingXS = 4.0;
   static const double spacingS = 8.0;
   static const double spacingM = 12.0;

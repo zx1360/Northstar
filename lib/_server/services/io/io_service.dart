@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart'as path;
 
 class IoService {
+  // 应用所在目录.
   static String get appDir => path.dirname(Platform.resolvedExecutable);
   
   // 初始化目录. 创建所有需要的目录结构.
@@ -19,7 +20,7 @@ class IoService {
   
   // 根据相对路径创建一个目录.
   static Future<Directory> getSaveDir(String relativePath)async{
-    String appDir = path.dirname(Platform.resolvedExecutable);
+    String appDir = IoService.appDir;
     String targetDir = path.join(appDir, relativePath);
     try{
       return Directory(targetDir).create(recursive: true);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
+// TODO: 2. titlebar设为position(), 让各页面内容在ShellPage的Stack内部, 实现内容置顶呈现.
 class TitleBar extends StatelessWidget {
   const TitleBar({super.key});
 

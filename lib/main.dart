@@ -1,11 +1,12 @@
 // web服务器.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:northstar/_server/services/io/io_service.dart';
 import 'package:northstar/_server/myserver.dart';
 // 应用配置 (窗口, 托盘等)
 // ui相关.
 import 'package:flutter/material.dart';
 import 'package:northstar/app/app.dart';
-import 'package:northstar/app_config/app_window.dart';
+import 'package:northstar/app/app_window.dart';
 
 
 void main(List<String> args) async {
@@ -25,6 +26,6 @@ void main(List<String> args) async {
     WidgetsFlutterBinding.ensureInitialized();
     // 初始化窗体配置 初始化系统托盘
     await initWindow();
-    runApp(MyApp());
+    runApp(ProviderScope(child: MyApp()));
   }
 }

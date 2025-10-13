@@ -8,7 +8,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: const app
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: "northstar 北极星",

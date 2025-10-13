@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:northstar/app/routes.dart';
 import 'package:window_manager/window_manager.dart';
 
-// TODO: 考虑考虑stateless/stateful 组件及复用及背后机制.
+// TODO: 考虑考虑stateless/stateful 组件及复用及背后机制(以及生命周期深入).
 class SideNavbar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 // 打开Windows资源管理器
 Future<void> openExplorer(BuildContext context, String path) async {
+  path = path.replaceAll("/", "\\");
   try {
     // 检查路径是否存在
     final directory = Directory(path);
     if (await directory.exists()) {
       // Windows 打开资源管理器命令
-      print(path);
       await Process.start('explorer.exe', [path]);
     } else {
       // 路径不存在时提示用户

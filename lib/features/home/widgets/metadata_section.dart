@@ -17,7 +17,6 @@ class MetadataSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final metadataAsync = ref.watch(metadataOverviewProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,16 +31,10 @@ class MetadataSection extends ConsumerWidget {
 
         SizedBox(height: AppDimens.spacingM),
 
-        // 数据加载状态处理
-        metadataAsync.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stack) => Center(child: Text('Error: $error')),
-          data: (metadata) => MetadataGrid(
-            metadata: metadata,
+        MetadataGrid(
             colorTheme: colorTheme,
             textTheme: textTheme,
           ),
-        ),
       ],
     );
   }

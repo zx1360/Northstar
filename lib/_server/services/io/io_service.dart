@@ -9,9 +9,14 @@ class IoService {
   // 初始化目录. 创建所有需要的目录结构.
   static Future<void> initDirectories()async{
     List<String> dirs = [
+      // 用户数据备份目录
       "static/img_storage",
       "static/booklet",
       "static/essay",
+      // 日志等信息
+      "logging",
+      // 资源库
+      "assets",
     ];
     for(final dir in dirs){
       await getSaveDir(dir);

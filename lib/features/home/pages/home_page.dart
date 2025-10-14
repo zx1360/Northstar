@@ -75,26 +75,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       appBar: AppBar(
         title: Text("应用主页", style: textTheme.titleLarge),
         centerTitle: false,
-        actions: [
-          // 其他操作按钮（示例）
-          IconButton(
-            icon: const Icon(Icons.settings_rounded),
-            onPressed: () {
-              // TODO: 打开设置页面逻辑
-            },
-            tooltip: "设置",
-          ),
-
-          IconButton(
-            icon: const Icon(Icons.help_center_rounded),
-            onPressed: () {
-              // TODO: 打开帮助页面逻辑
-            },
-            tooltip: "帮助",
-          ),
-
-          SizedBox(width: AppDimens.paddingM),
-        ],
       ),
 
       // 主内容区域

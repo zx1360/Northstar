@@ -1,45 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:northstar/_server/myserver.dart';
+import 'package:northstar/providers/northstar/status_provider.dart';
 
-class ServerPage extends StatefulWidget {
+class ServerPage extends ConsumerStatefulWidget {
   const ServerPage({super.key});
 
   @override
-  State<ServerPage> createState() => _ServerPageState();
+  ConsumerState<ServerPage> createState() => _ServerPageState();
 }
 
-class _ServerPageState extends State<ServerPage> {
-  // Web服务实例
-  final Myserver _server = Myserver();
-
-  // 状态变量
-  bool _isServerRunning = false;
+class _ServerPageState extends ConsumerState<ServerPage> {
   String _statusMessage = "Web服务尚未启动...";
   final _portController = TextEditingController(text: "4215");
   final List<String> _logMessages = [];
 
   // 切换服务器运行状态
   Future<void> _toggleServer() async {
-    if (_isServerRunning) {
-      await _server.stop();
+    final serverNotifier = ref.read(appStatusProvider.notifier);
+    if (serverNotifier.isServerRunning) {
+      await serverNotifier.stopServer();
       _addLog("Web服务已停止.");
     } else {
-      final port = int.tryParse(_portController.text) ?? 4215;
       try {
-        await _server.start(port: port);
-        _addLog("服务器启动: ${_server.ip}:$port");
+        final port = int.tryParse(_portController.text) ?? 4215;
+        await serverNotifier.startServer(port: port);
+        _addLog("服务器启动.");
       } catch (e) {
         _addLog("启动失败: ${e.toString()}");
       }
     }
-
-    // 更新ui状态
     setState(() {
-      _isServerRunning = _server.isRunning;
-      _statusMessage = _isServerRunning
-          ? "服务器运行中 (IP: ${_server.ip}, 端口: ${_server.port})"
-          : "Web服务尚未启动...";
+      _statusMessage = serverNotifier.isServerRunning ? "服务器运行中" : "Web服务尚未启动";
     });
   }
 
@@ -48,7 +41,7 @@ class _ServerPageState extends State<ServerPage> {
     final time = DateTime.now().toString();
     setState(() {
       _logMessages.insert(0, "[$time] $message");
-      // 限制日志数量，避免内存占用过大
+      // 限制日志数量
       if (_logMessages.length > 100) {
         _logMessages.removeLast();
       }
@@ -57,22 +50,29 @@ class _ServerPageState extends State<ServerPage> {
 
   // 复制服务器地址到剪贴板
   void _copyServerAddress() {
-    if (_isServerRunning) {
-      final address = "http://${_server.ip}:${_server.port}";
+    final server = ref.watch(appStatusProvider.select((p) => p.server));
+    if (server.isRunning) {
+      final address = "http://${server.address}";
       Clipboard.setData(ClipboardData(text: address));
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("已复制地址: $address")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("已复制地址: $address")));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final colorTheme = Theme.of(context).colorScheme;
+    // 响应式数据
+    final MyServer server = ref.watch(
+      appStatusProvider.select((p) => p.server),
+    );
+
+    // UI
     return Container(
       color: colorTheme.surface,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -94,7 +94,7 @@ class _ServerPageState extends State<ServerPage> {
                               hintText: "输入端口号(1-65535)",
                               border: OutlineInputBorder(),
                             ),
-                            enabled: !_isServerRunning, // 服务器运行时不可编辑
+                            enabled: !server.isRunning,
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -105,12 +105,12 @@ class _ServerPageState extends State<ServerPage> {
                               horizontal: 24,
                               vertical: 16,
                             ),
-                            backgroundColor: _isServerRunning
+                            backgroundColor: server.isRunning
                                 ? colorTheme.onSecondary
                                 : Theme.of(context).primaryColor,
                           ),
                           child: Text(
-                            _isServerRunning ? "停止服务器" : "启动服务器",
+                            server.isRunning ? "停止服务器" : "启动服务器",
                             style: const TextStyle(
                               fontSize: 16,
                               color: Colors.amber,
@@ -127,12 +127,12 @@ class _ServerPageState extends State<ServerPage> {
                           _statusMessage,
                           style: TextStyle(
                             fontSize: 16,
-                            color: _isServerRunning
+                            color: server.isRunning
                                 ? Colors.green
                                 : Colors.grey,
                           ),
                         ),
-                        if (_isServerRunning)
+                        if (server.isRunning)
                           TextButton.icon(
                             onPressed: _copyServerAddress,
                             icon: const Icon(Icons.copy),

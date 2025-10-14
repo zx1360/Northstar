@@ -44,11 +44,11 @@ class _ShellPageState extends State<ShellPage> {
         children: [
           SideNavbar(navigationShell: widget.navigationShell),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            child: Stack(
+              fit: StackFit.expand,
               children: [
-                const TitleBar(),
-                Expanded(child: widget.navigationShell),
+                Positioned.fill(child: widget.navigationShell),
+                Positioned(top: 0,left: 0, right: 0,child: const TitleBar()),
               ],
             ),
           ),

@@ -6,11 +6,11 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:northstar/_server/router/_root_router.dart';
 
-class Myserver {
+class MyServer {
   // 单例模式, 使其全局唯一, 可被provider获取同一实例.
-  static final Myserver _instance = Myserver._();
-  Myserver._();
-  factory Myserver() => _instance;
+  static final MyServer _instance = MyServer._();
+  MyServer._();
+  factory MyServer() => _instance;
 
   // 服务器配置信息
   late HttpServer _server;
@@ -22,6 +22,7 @@ class Myserver {
   bool get isRunning => _isRunning;
   String get ip => _ip;
   int get port => _port;
+  String get address => "http://$ip:$port";
 
   // 启动web服务.
   Future<void> start({int port = 4215}) async {
@@ -38,6 +39,7 @@ class Myserver {
       _ip = await getLocalIps();
       _server = await shelf_io.serve(handler, _ip, _port);
       _isRunning = true;
+      AppLogger().info("server: 已启动");
     } catch (err) {
       throw Exception("err: $err");
     }

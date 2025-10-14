@@ -59,7 +59,6 @@ class MetadataGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: MediaQuery.of(context).size.width > 1000 ? 3 : 2,
       crossAxisSpacing: AppDimens.spacingM,
-      mainAxisSpacing: AppDimens.spacingM,
       childAspectRatio: 4.8,
       children: metadataItems.map((item) {
         return Card(

@@ -11,32 +11,32 @@ class TitleBar extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Container(
+      width: double.infinity,
       height: 48,
-      color: colorScheme.surface,
+      color: Colors.transparent,
       child: Row(
         children: [
           Expanded(
-            child: DragToMoveArea(
-              child: Container(
-                height: double.infinity,
-              ),
-            ),
+            child: DragToMoveArea(child: Container(height: double.infinity)),
           ),
           IconButton(
-            icon: Icon(Icons.keyboard_double_arrow_down_sharp, color: colorScheme.onSurfaceVariant),
+            icon: Icon(
+              Icons.keyboard_double_arrow_down_sharp,
+              color: colorScheme.onSurfaceVariant,
+            ),
             onPressed: () {},
             tooltip: '菜单',
             splashRadius: 20,
           ),
           IconButton(
             icon: Icon(Icons.remove, color: colorScheme.onSurfaceVariant),
-            onPressed: () async => await windowManager.minimize(),
+            onPressed: () => windowManager.minimize(),
             tooltip: '最小化',
             splashRadius: 20,
           ),
           IconButton(
             icon: Icon(Icons.close, color: colorScheme.onSurfaceVariant),
-            onPressed: () async => await windowManager.hide(),
+            onPressed: () => windowManager.hide(),
             tooltip: '关闭',
             splashRadius: 20,
           ),

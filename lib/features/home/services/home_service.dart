@@ -9,6 +9,7 @@ Future<void> openExplorer(BuildContext context, String path) async {
     final directory = Directory(path);
     if (await directory.exists()) {
       // Windows 打开资源管理器命令
+      print(path);
       await Process.start('explorer.exe', [path]);
     } else {
       // 路径不存在时提示用户

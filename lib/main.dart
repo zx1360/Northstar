@@ -1,7 +1,7 @@
 // web服务器.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:northstar/_server/services/io/io_service.dart';
 import 'package:northstar/_server/myserver.dart';
+import 'package:northstar/_server/services/io/io_service.dart';
 // 应用配置 (窗口, 托盘等)
 // ui相关.
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ void main(List<String> args) async {
   // exe: northstar.exe --nas=true
   // 如果是nas环境, 只启动web服务而无ui.
   if (const String.fromEnvironment("nas").isNotEmpty) {
-    final server = Myserver();
+    final server = MyServer();
     await server.start(port: 9527);
     await Future.wait([]);
   }

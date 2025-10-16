@@ -27,7 +27,6 @@ dependencies:
   go_router: ^16.2.4
   # 工具包类别
   path: ^1.9.1
-  # path_provider_windows: ^2.3.0
   logging: ^1.3.0
   # TODO:
   # url_launcher_windows: ^3.1.4
@@ -35,12 +34,15 @@ dependencies:
 
 
   # ----网络相关----
+  # 网络请求
+  http: ^1.5.0
   # web服务开发框架
   shelf: ^1.4.2
   shelf_router: ^1.1.4
   shelf_static: ^1.1.3
   shelf_multipart: ^2.0.1
-
+  # headless浏览器
+  puppeteer: ^3.20.0
 
   # ----更好的显示----
   # 时间格式化
@@ -49,6 +51,9 @@ dependencies:
   markdown: ^7.3.0
   flutter_markdown_plus: ^1.0.5
   
+
+  # ----codegen代码生成----
+  json_annotation: ^4.9.0
 
   cupertino_icons: ^1.0.8
 
@@ -60,6 +65,7 @@ dev_dependencies:
   # 开发时依赖
   build_runner: ^2.4.6
   riverpod_generator: ^2.3.9
+  json_serializable: ^6.8.0
 
 flutter:
   uses-material-design: true

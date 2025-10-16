@@ -72,7 +72,7 @@ class _ServerPageState extends ConsumerState<ServerPage> {
     return Container(
       color: colorTheme.surface,
       child: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 48),
+        padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

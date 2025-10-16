@@ -14,6 +14,7 @@ class SideNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final lastPageIndex = routes.length-1;
     final currentIndex = navigationShell.currentIndex;
 
     return Container(
@@ -51,13 +52,13 @@ class SideNavbar extends StatelessWidget {
 
               labelType: NavigationRailLabelType.none,
               destinations: [
-                for (final route in routes.take(4))
+                for (final route in routes.sublist(0, lastPageIndex))
                   NavigationRailDestination(
                     icon: Icon(route.icon),
                     label: const SizedBox.shrink(),
                   ),
               ],
-              selectedIndex: currentIndex < 4 ? currentIndex : null,
+              selectedIndex: currentIndex < lastPageIndex ? currentIndex : null,
               onDestinationSelected: (index) {
                 navigationShell.goBranch(index);
               },
@@ -66,11 +67,11 @@ class SideNavbar extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: IconButton(
                   onPressed: () async {
-                    navigationShell.goBranch(4);
+                    navigationShell.goBranch(lastPageIndex);
                   },
                   icon: Icon(IconData(0xe60a, fontFamily: "iconfont")),
                   iconSize: 28,
-                  color: currentIndex == 4
+                  color: currentIndex == lastPageIndex
                       ? colorScheme.primary
                       : colorScheme.onSurfaceVariant,
                   splashRadius: 28,

@@ -1,16 +1,43 @@
-# northstar
+# NORTHSTAR 北极星
 
-A new Flutter project.
+**版本:**
 
-## Getting Started
+1.0.0
 
-This project is a starting point for a Flutter application.
+## 关于本应用
 
-A few resources to get you started if this is your first Flutter project:
+与我另一个库中的 **TORRID** 应用搭配使用.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+提供图形化界面提供数据备份, 管理资源等.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 页面功能
+
+## Home 主页
+
+- 小圆点颜色表示web服务器是否启动.
+- 展示部分的总览信息.
+
+## Overview 总览页
+
+TODO:
+
+用户数据(booklet/essay等)以及资源信息(漫画资源等)
+
+## Server 服务器页
+
+以供TORRID进行数据交互的web服务器.
+
+## Profile 个人页
+
+用户情况, 设置更改.
+
+# 更多
+
+## 反馈
+
+报告漏洞或提供建议
+
+- `github` TODO:
+- `邮箱 ` **3039328600@QQ.com**
+
+### 

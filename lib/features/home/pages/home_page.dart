@@ -5,7 +5,7 @@ import 'package:northstar/features/home/providers/directories_provider.dart';
 import 'package:northstar/features/home/widgets/directory_section.dart';
 import 'package:northstar/features/home/widgets/metadata_section.dart';
 import 'package:northstar/features/home/widgets/server_status_card.dart';
-
+import 'package:northstar/shared/widgets/heading/heading.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -21,47 +21,46 @@ class _HomePageState extends ConsumerState<HomePage> {
     final colorTheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      // 顶部导航栏（符合桌面应用风格）
-      appBar: AppBar(
-        title: Text("应用主页", style: textTheme.titleLarge),
-        centerTitle: false,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Heading(title: "应用主页"),
+        
+        // 主内容区域
+        SingleChildScrollView(
+          padding: EdgeInsets.all(AppDimens.paddingL),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 1. webServer状态.
+              ServerStatusCard(
+                context: context,
+                colorTheme: colorTheme,
+                textTheme: textTheme,
+              ),
 
-      // 主内容区域
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppDimens.paddingL),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 1. webServer状态.
-            ServerStatusCard(
-              context: context,
-              colorTheme: colorTheme,
-              textTheme: textTheme,
-            ),
+              SizedBox(height: AppDimens.spacingXL),
 
-            SizedBox(height: AppDimens.spacingXL),
+              // 2. 应用目录快捷访问
+              DirectorySection(
+                context: context,
+                directories: ref.watch(appDirectoriesProvider),
+                colorTheme: colorTheme,
+                textTheme: textTheme,
+              ),
 
-            // 2. 应用目录快捷访问
-            DirectorySection(
-              context: context,
-              directories: ref.watch(appDirectoriesProvider),
-              colorTheme: colorTheme,
-              textTheme: textTheme,
-            ),
+              SizedBox(height: AppDimens.spacingXL),
 
-            SizedBox(height: AppDimens.spacingXL),
-
-            // 3. 累计数据统计
-            MetadataSection(
-              context: context,
-              colorTheme: colorTheme,
-              textTheme: textTheme,
-            ),
-          ],
+              // 3. 累计数据统计
+              MetadataSection(
+                context: context,
+                colorTheme: colorTheme,
+                textTheme: textTheme,
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

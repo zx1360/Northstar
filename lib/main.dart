@@ -6,7 +6,7 @@ import 'package:northstar/_server/services/io/io_service.dart';
 // ui相关.
 import 'package:flutter/material.dart';
 import 'package:northstar/app/app.dart';
-import 'package:northstar/app/app_window.dart';
+import 'package:northstar/services/window_service.dart';
 
 
 void main(List<String> args) async {
@@ -15,6 +15,7 @@ void main(List<String> args) async {
   // 根据参数选择启动模式.
   // 开发时: flutter run -d windows --dart-define=nas=true
   // exe: northstar.exe --nas=true
+
   // 如果是nas环境, 只启动web服务而无ui.
   if (const String.fromEnvironment("nas").isNotEmpty) {
     final server = MyServer();
@@ -26,6 +27,7 @@ void main(List<String> args) async {
     WidgetsFlutterBinding.ensureInitialized();
     // 初始化窗体配置 初始化系统托盘
     await initWindow();
+    
     runApp(ProviderScope(child: MyApp()));
   }
 }
